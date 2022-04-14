@@ -1,0 +1,38 @@
+{
+    "name": "checklister",
+    "private": true,
+    "version": "0.0.0",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "prettify": "prettier --write '{,!(node_modules)/**/}*.{ts,tsx,json}'",
+        "lintify": "eslint -f table . --ext .tsx,.ts --fix",
+        "lint": "eslint . --ext .ts,.tsx -f table"
+    },
+    "dependencies": {
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0",
+        "react-router": "^6.3.0",
+        "react-router-dom": "^6.3.0",
+        "typesafe-routes": "^7.0.2"
+    },
+    "devDependencies": {
+        "@types/react": "^18.0.0",
+        "@types/react-dom": "^18.0.0",
+        "@typescript-eslint/eslint-plugin": "^5.19.0",
+        "@typescript-eslint/parser": "^5.19.0",
+        "@vitejs/plugin-react": "^1.3.0",
+        "eslint": "^8.2.0",
+        "eslint-config-react-app": "^7.0.1",
+        "eslint-formatter-table": "^7.32.1",
+        "eslint-plugin-import": "^2.25.3",
+        "eslint-plugin-jest": "^26.1.4",
+        "eslint-plugin-jsx-a11y": "^6.5.1",
+        "eslint-plugin-react": "^7.28.0",
+        "eslint-plugin-react-hooks": "^4.3.0",
+        "prettier": "^2.6.2",
+        "typescript": "^4.6.3",
+        "vite": "^2.9.2"
+    }
+}
