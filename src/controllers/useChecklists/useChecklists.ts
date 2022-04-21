@@ -5,10 +5,12 @@ import { v4 as uuidv4 } from "uuid";
 import { Checklist, ChecklistId } from "../../entities/Checklist";
 import allChecklistsAtom from "../../recoil/atoms/allChecklists";
 
+type Result<T> = [T, false] | [null, true];
+
 type ChecklistsController = {
     getChecklists(): [Checklist[], boolean];
-    getChecklist(checklistId?: ChecklistId): [Checklist | null, boolean];
-    addChecklist(title: string, items: string[]): [Checklist | null, boolean];
+    getChecklist(checklistId?: ChecklistId): Result<Checklist>;
+    addChecklist(title: string, items: string[]): [Checklist, false] | [null, true];
     updateChecklist(checklistId: ChecklistId, title: string, items: string[]): [Checklist | null, boolean];
     removeChecklist(checklistId: ChecklistId): [Checklist | null, boolean];
 };

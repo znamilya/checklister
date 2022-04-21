@@ -4,6 +4,9 @@ import { Plus as IconPlus } from "tabler-icons-react";
 
 import routes from "../../../../routes";
 
+/**
+ * A button for creating a new checklist.
+ */
 const NewChecklistButton = () => {
     return (
         <Button

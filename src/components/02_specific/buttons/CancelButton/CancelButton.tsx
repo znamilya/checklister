@@ -1,10 +1,16 @@
 import { Button } from "@mantine/core";
 import { useNavigate } from "react-router";
 
-type CancelButtonProps = {
+export type CancelButtonProps = {
+    /**
+     * The URL to navigate to when the button is clicked.
+     */
     backUrl?: string;
 };
 
+/**
+ * A button for canceling an action.
+ */
 const CancelButton = ({ backUrl = "/" }: CancelButtonProps) => {
     const navigate = useNavigate();
 
