@@ -4,9 +4,11 @@ import { NavLink } from "typesafe-routes/build/react-router";
 import { Checklist } from "../../../entities/Checklist";
 import routes from "../../../routes";
 
-type ChecklistsListProps = {
+export type ChecklistsListProps = {
     checklists: Checklist[];
 };
+
+export const EMPTY_MESSAGE = "You haven't created any checklist yet.";
 
 /**
  * Display a list of given checklists.
@@ -27,7 +29,7 @@ const ChecklistsList = ({ checklists }: ChecklistsListProps) => {
                     </Paper>
                 ))
             ) : (
-                <p>You haven't created any checklist yet.</p>
+                <p>{EMPTY_MESSAGE}</p>
             )}
         </Stack>
     );
