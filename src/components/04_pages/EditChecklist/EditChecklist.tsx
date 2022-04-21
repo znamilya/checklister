@@ -1,16 +1,16 @@
 import { useRouteParams } from "typesafe-routes";
 
 import routes from "../../../routes";
-import ChecklistDetailsModule from "../../03_modules/ChecklistDetails";
+import ChecklistEditModule from "../../03_modules/ChecklistEdit";
 
-const ChecklistDetailsPage = () => {
+const EditChecklistPage = () => {
     const { checklistId } = useRouteParams(routes.children.checklistDetails);
 
     return (
         <>
-            <ChecklistDetailsModule checklistId={checklistId} />
+            <ChecklistEditModule checklistId={checklistId} />
         </>
     );
 };
 
-export default ChecklistDetailsPage;
+export default EditChecklistPage;

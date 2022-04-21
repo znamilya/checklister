@@ -1,9 +1,9 @@
-import ChecklistEditModule from "../../03_modules/ChecklistEdit";
+import ChecklistCreateModule from "../../03_modules/ChecklistCreate";
 
 const AddChecklistPage = () => {
     return (
         <>
-            <ChecklistEditModule />
+            <ChecklistCreateModule />
         </>
     );
 };

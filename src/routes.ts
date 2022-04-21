@@ -5,9 +5,17 @@ const routes = typesafeRoutes.route(
     "/",
     {},
     {
-        addChecklist: typesafeRoutes.route("add", {}, {}),
+        home: typesafeRoutes.route("/", {}, {}),
+        addChecklist: typesafeRoutes.route("/add", {}, {}),
         checklistDetails: typesafeRoutes.route(
             "/:checklistId",
+            {
+                checklistId: typesafeRoutes.stringParser,
+            },
+            {},
+        ),
+        editChecklist: typesafeRoutes.route(
+            "/:checklistId/edit",
             {
                 checklistId: typesafeRoutes.stringParser,
             },
