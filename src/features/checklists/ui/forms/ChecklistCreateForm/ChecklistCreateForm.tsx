@@ -71,8 +71,7 @@ const ChecklistCreateForm = ({
                         </FormControl>
                         <IconButton
                             colorScheme="red"
-                            size="sm"
-                            variant="outline"
+                            variant="ghost"
                             aria-label="Delete item"
                             onClick={() => {
                                 form.setFieldValue("itemsCount", form.values.itemsCount - 1);
@@ -104,7 +103,7 @@ const ChecklistCreateForm = ({
                             />
                             <FormErrorMessage>{form.errors.itemsCount}</FormErrorMessage>
                         </FormControl>
-                        <IconButton aria-label="Add item" size="sm" variant="ghost" colorScheme="blue" type="submit">
+                        <IconButton aria-label="Add item" variant="ghost" colorScheme="blue" type="submit">
                             <IconPlus />
                         </IconButton>
                     </Stack>
