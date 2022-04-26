@@ -32,11 +32,15 @@ const ChecklistCreateForm = ({
         initialValues: {
             title: initialValues?.title || "",
             newItem: "",
+            itemsCount: initialValues?.items?.length || 0,
             items: formList<ItemValue>(initialValues?.items || []),
         },
 
         validate: {
             title: minLength(3, "Title must have at least 3 letters"),
+            itemsCount: (value) => {
+                return value > 0 ? null : "Checklist must contain at least one item";
+            },
         },
     });
 
@@ -71,6 +75,7 @@ const ChecklistCreateForm = ({
                             variant="outline"
                             aria-label="Delete item"
                             onClick={() => {
+                                form.setFieldValue("itemsCount", form.values.itemsCount - 1);
                                 form.removeListItem("items", index);
                             }}
                         >
@@ -84,13 +89,20 @@ const ChecklistCreateForm = ({
                     onSubmit={(e) => {
                         e.preventDefault();
                         form.addListItem("items", { title: form.values.newItem });
+                        form.setFieldValue("itemsCount", form.values.itemsCount + 1);
                         form.setFieldValue("newItem", "");
                     }}
                 >
-                    <Stack align="center" spacing={4} isInline>
-                        <FormControl isInvalid={Boolean(form.errors.title)} sx={{ flex: 1 }}>
-                            <Input {...form.getInputProps("newItem")} />
-                            <FormErrorMessage>{form.errors.title}</FormErrorMessage>
+                    <Stack spacing={4} isInline>
+                        <FormControl isInvalid={Boolean(form.errors.itemsCount)} sx={{ flex: 1 }}>
+                            <Input
+                                {...form.getInputProps("newItem")}
+                                onChange={(e) => {
+                                    form.setFieldError("itemsCount", null);
+                                    form.getInputProps("newItem").onChange(e);
+                                }}
+                            />
+                            <FormErrorMessage>{form.errors.itemsCount}</FormErrorMessage>
                         </FormControl>
                         <IconButton aria-label="Add item" size="sm" variant="ghost" colorScheme="blue" type="submit">
                             <IconPlus />
@@ -98,7 +110,6 @@ const ChecklistCreateForm = ({
                     </Stack>
                 </form>
             </Stack>
-            {form.errors.itemsCount}
 
             {/* ACTIONS */}
             <Stack mt={8} justify="space-between" isInline>
