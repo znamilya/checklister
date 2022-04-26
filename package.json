@@ -6,6 +6,7 @@
         "dev": "vite",
         "test": "jest",
         "test:watch": "jest --watch",
+        "type-check": "tsc --noEmit",
         "build": "tsc && vite build",
         "preview": "vite preview",
         "prettify": "prettier --write '{,!(node_modules)/**/}*.{ts,tsx,json}'",
@@ -13,7 +14,7 @@
         "lint": "eslint . --ext .ts,.tsx -f table",
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook",
-        "chromatic": "chromatic"
+        "deploy": "netlify deploy --dir=dist"
     },
     "dependencies": {
         "@chakra-ui/react": "^1.8.8",
@@ -63,6 +64,7 @@
         "eslint-plugin-react": "^7.28.0",
         "eslint-plugin-react-hooks": "^4.3.0",
         "jest": "^27.5.1",
+        "netlify-cli": "^10.1.0",
         "prettier": "^2.6.2",
         "testing-library-selector": "^0.2.1",
         "ts-jest": "^27.1.4",

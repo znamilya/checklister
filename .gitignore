@@ -25,3 +25,5 @@ node_modules
 storybook-static
 dist
 dist-ssr
+# Local Netlify folder
+.netlify
