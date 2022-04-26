@@ -1,4 +1,4 @@
-import { Button } from "@mantine/core";
+import { Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 
 export type CancelButtonProps = {
@@ -15,7 +15,7 @@ const CancelButton = ({ backUrl = "/" }: CancelButtonProps) => {
     const navigate = useNavigate();
 
     return (
-        <Button variant="subtle" onClick={() => navigate(backUrl)}>
+        <Button variant="outline" onClick={() => navigate(backUrl)}>
             Cancel
         </Button>
     );

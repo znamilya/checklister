@@ -1,9 +1,11 @@
 import { useEffect } from "react";
-import { ActionIcon, Button, Checkbox, Group, Stack, Title } from "@mantine/core";
+import { IconButton, Button, ButtonGroup, Checkbox, Stack } from "@chakra-ui/react";
 import { NavLink } from "typesafe-routes";
 import { Settings as IconSettings } from "tabler-icons-react";
+import { Link } from "react-router-dom";
 
 import routes from "@/routes";
+import PageHeading from "@/ui/components/PageHeading";
 import CancelButton from "@/ui/components/CancelButton";
 
 import { ChecklistId } from "../../../types";
@@ -34,46 +36,48 @@ const ChecklistDetailsModule = ({ checklistId }: ChecklistDetailsModuleProps) =>
     }
 
     return (
-        <div>
-            <Group mb="24px" align="center" position="apart">
-                <Title order={1}>{activeChecklist.title}</Title>
-                <ActionIcon
-                    component={NavLink}
-                    to={routes.children.editChecklist({ checklistId })}
-                    variant="light"
-                    color="blue"
-                    size="lg"
-                >
-                    <IconSettings />
-                </ActionIcon>
-            </Group>
+        <>
+            <PageHeading
+                control={
+                    <IconButton
+                        aria-label="Edit checklist"
+                        as={Link}
+                        to={routes.children.editChecklist({ checklistId }).$}
+                        colorScheme="blue"
+                        variant="outline"
+                    >
+                        <IconSettings />
+                    </IconButton>
+                }
+            >
+                {activeChecklist.title}
+            </PageHeading>
 
-            <Stack spacing="sm">
+            <Stack spacing={4}>
                 {activeChecklist.items.map((item, index) => (
                     <Checkbox
                         py="xs"
-                        size="md"
-                        label={item.title}
+                        size="lg"
                         checked={item.isChecked}
                         onChange={(event) => checkItem(index, event.currentTarget.checked)}
                         key={item.id}
-                    />
+                    >
+                        {item.title}
+                    </Checkbox>
                 ))}
             </Stack>
 
-            <Group spacing="sm" mt="24px">
+            <ButtonGroup mt={8}>
                 {activeChecklist.isCompleted ? (
-                    <Button component={NavLink} to={{ $: "/" }} color="green" uppercase>
+                    <Button as={NavLink} to={{ $: "/" }} colorScheme="green">
                         Complete
                     </Button>
                 ) : (
-                    <Button disabled uppercase>
-                        Complete
-                    </Button>
+                    <Button disabled>Complete</Button>
                 )}
                 <CancelButton />
-            </Group>
-        </div>
+            </ButtonGroup>
+        </>
     );
 };
 

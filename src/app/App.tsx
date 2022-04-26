@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { AppShell, Container } from "@mantine/core";
+import { ChakraProvider, Container } from "@chakra-ui/react";
 
 import routes from "@/routes";
 import DebugObserver from "@/features/devTools/ui/DebugObserver";
@@ -8,6 +8,7 @@ import ChecklistDetailsPage from "@/pages/ChecklistDetails";
 import EditChecklistPage from "@/pages/EditChecklist";
 import HomePage from "@/pages/Home";
 import NotFoundPage from "@/pages/NotFound";
+import theme from "@/styles/chakraTheme";
 
 import AppHeaderModule from "./partial/AppHeader";
 
@@ -15,9 +16,9 @@ function App() {
     return (
         <BrowserRouter>
             <DebugObserver />
-            <AppHeaderModule />
-            <AppShell padding="md">
-                <Container size="xs">
+            <ChakraProvider theme={theme}>
+                <AppHeaderModule />
+                <Container as="main" pt={4}>
                     <Routes>
                         <Route path={routes.template}>
                             <Route index element={<HomePage />} />
@@ -31,7 +32,7 @@ function App() {
                         </Route>
                     </Routes>
                 </Container>
-            </AppShell>
+            </ChakraProvider>
         </BrowserRouter>
     );
 }

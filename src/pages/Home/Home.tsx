@@ -1,8 +1,10 @@
-import { ChecklistsListModule } from "@/features/checklists";
+import { ChecklistsListModule, NewChecklistButton } from "@/features/checklists";
+import PageHeading from "@/ui/components/PageHeading";
 
 const HomePage = () => {
     return (
         <>
+            <PageHeading control={<NewChecklistButton />}>Checklists</PageHeading>
             <ChecklistsListModule />
         </>
     );

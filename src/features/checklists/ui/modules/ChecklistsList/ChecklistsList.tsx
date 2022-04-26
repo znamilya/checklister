@@ -1,8 +1,5 @@
-import { Group, Title } from "@mantine/core";
-
 import useChecklistsController from "../../../controllers/useChecklists";
 import ChecklistsList from "../../components/ChecklistsList";
-import NewChecklistButton from "../../components/NewChecklistButton";
 
 /**
  * Display a list of available checklists.
@@ -15,15 +12,7 @@ const ChecklistsListModule = () => {
         return <div>Can't get your checklists.</div>;
     }
 
-    return (
-        <>
-            <Group mb="24px" align="center" position="apart">
-                <Title order={1}>Checklists</Title>
-                <NewChecklistButton />
-            </Group>
-            <section>{<ChecklistsList checklists={checklists} />}</section>
-        </>
-    );
+    return <ChecklistsList checklists={checklists} />;
 };
 
 export default ChecklistsListModule;

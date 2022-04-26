@@ -1,5 +1,5 @@
+import { useMemo } from "react";
 import { useNavigate } from "react-router";
-import { Button } from "@mantine/core";
 import { map, prop } from "ramda";
 
 import routes from "@/routes";
@@ -20,6 +20,16 @@ const ChecklistEditModule = ({ checklistId }: ChecklistEditModuleProps) => {
     const { getChecklist, updateChecklist, removeChecklist } = useChecklistsController();
     const [checklist, checklistError] = getChecklist(checklistId);
     const navigate = useNavigate();
+    const initialValues = useMemo(
+        () =>
+            checklist
+                ? {
+                      title: checklist.title,
+                      items: checklist.items.map((item) => ({ title: item.title })),
+                  }
+                : {},
+        [checklist],
+    );
 
     // HANDLERS
     const handleFormSubmit = ({ title, items }: Values) => {
@@ -47,10 +57,7 @@ const ChecklistEditModule = ({ checklistId }: ChecklistEditModuleProps) => {
 
     return (
         <ChecklistCreateForm
-            initialValues={{
-                title: checklist.title,
-                items: checklist.items.map((item) => ({ title: item.title })),
-            }}
+            initialValues={initialValues}
             submitButtonText="Save"
             cancelBackUrl={routes.children.checklistDetails({ checklistId }).$}
             onSubmit={handleFormSubmit}

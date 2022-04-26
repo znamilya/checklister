@@ -1,4 +1,5 @@
-import { ActionIcon, Button, Group, Stack, TextInput } from "@mantine/core";
+import { Input, FormControl, FormLabel, FormErrorMessage } from "@chakra-ui/react";
+import { Button, IconButton, ButtonGroup, Stack } from "@chakra-ui/react";
 import { Plus as IconPlus, Trash as IconTrash } from "tabler-icons-react";
 import { useForm, formList } from "@mantine/form";
 
@@ -47,29 +48,35 @@ const ChecklistCreateForm = ({
     // RENDER
     return (
         <div>
-            <Stack>
+            <Stack spacing={4}>
                 {/* TITLE */}
                 <form id="main-form" onSubmit={form.onSubmit(handleFormSubmit)}>
-                    <TextInput label="Title" size="xl" variant="unstyled" autoFocus {...form.getInputProps("title")} />
+                    <FormControl isInvalid={Boolean(form.errors.title)}>
+                        <FormLabel htmlFor="title">Title</FormLabel>
+                        <Input id="title" variant="flushed" autoFocus {...form.getInputProps("title")} />
+                        <FormErrorMessage>{form.errors.title}</FormErrorMessage>
+                    </FormControl>
                 </form>
 
                 {/* ITEMS */}
                 {form.values.items.map((_item, index) => (
-                    <Group align="center" key={index}>
-                        <TextInput
-                            sx={{ flex: 1 }}
-                            placeholder="item title"
-                            {...form.getListInputProps("items", index, "title")}
-                        />
-                        <ActionIcon
-                            color="red"
+                    <Stack align="center" spacing={4} isInline key={index}>
+                        <FormControl isInvalid={Boolean(form.errors.title)} sx={{ flex: 1 }}>
+                            <Input {...form.getListInputProps("items", index, "title")} />
+                            <FormErrorMessage>{form.errors.title}</FormErrorMessage>
+                        </FormControl>
+                        <IconButton
+                            colorScheme="red"
+                            size="sm"
+                            variant="outline"
+                            aria-label="Delete item"
                             onClick={() => {
                                 form.removeListItem("items", index);
                             }}
                         >
                             <IconTrash size="20" />
-                        </ActionIcon>
-                    </Group>
+                        </IconButton>
+                    </Stack>
                 ))}
 
                 {/* NEW ITEM */}
@@ -80,27 +87,38 @@ const ChecklistCreateForm = ({
                         form.setFieldValue("newItem", "");
                     }}
                 >
-                    <Group align="center">
-                        <TextInput sx={{ flex: 1 }} placeholder="item title" {...form.getInputProps("newItem")} />
-                        <ActionIcon variant="light" color="blue" type="submit">
+                    <Stack align="center" spacing={4} isInline>
+                        <FormControl isInvalid={Boolean(form.errors.title)} sx={{ flex: 1 }}>
+                            <Input {...form.getInputProps("newItem")} />
+                            <FormErrorMessage>{form.errors.title}</FormErrorMessage>
+                        </FormControl>
+                        <IconButton aria-label="Add item" size="sm" variant="ghost" colorScheme="blue" type="submit">
                             <IconPlus />
-                        </ActionIcon>
-                    </Group>
+                        </IconButton>
+                    </Stack>
                 </form>
             </Stack>
             {form.errors.itemsCount}
+
             {/* ACTIONS */}
-            <Group mt="24px" position="apart">
-                <Group spacing="sm">
-                    <Button color="green" type="submit" form="main-form" uppercase>
+            <Stack mt={8} justify="space-between" isInline>
+                <ButtonGroup>
+                    {/* SUBMIT BUTTON */}
+                    <Button colorScheme="green" type="submit" form="main-form">
                         {submitButtonText}
                     </Button>
+
+                    {/* CANCEL BUTTON */}
                     <CancelButton backUrl={cancelBackUrl} />
-                </Group>
-                <Button color="red" variant="light" uppercase type="button" onClick={() => onDelete?.()}>
-                    Delete
-                </Button>
-            </Group>
+                </ButtonGroup>
+
+                {/* DELETE BUTTON */}
+                {initialValues && (
+                    <Button colorScheme="red" variant="outline" type="button" onClick={() => onDelete?.()}>
+                        Delete
+                    </Button>
+                )}
+            </Stack>
         </div>
     );
 };
