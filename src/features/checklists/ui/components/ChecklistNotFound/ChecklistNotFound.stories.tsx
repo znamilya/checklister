@@ -1,7 +1,7 @@
 import ChecklistNotFound from "./ChecklistNotFound";
 
 export default {
-    title: "01_basic/ChecklistNotFound",
+    title: "features/checklists/ChecklistNotFound",
     component: ChecklistNotFound,
 };
 

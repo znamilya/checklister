@@ -1,7 +1,7 @@
 import NewChecklistButton from "./NewChecklistButton";
 
 export default {
-    title: "specific/buttons/NewChecklistButton",
+    title: "features/checklists/NewChecklistButton",
     component: NewChecklistButton,
 };
 

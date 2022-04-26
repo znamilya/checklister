@@ -1,6 +1,11 @@
 import { BrowserRouter } from "react-router-dom";
+import { ChakraProvider } from "@chakra-ui/react";
+import * as jest from "jest-mock";
 
-import "!style-loader!css-loader!../src/index.css";
+window.jest = jest;
+
+// import "!style-loader!css-loader!../src/index.css";
+import theme from "../src/styles/chakraTheme";
 
 export const parameters = {
     actions: { argTypesRegex: "^on[A-Z].*" },
@@ -15,7 +20,9 @@ export const parameters = {
 export const decorators = [
     (Story) => (
         <BrowserRouter>
-            <Story />
+            <ChakraProvider theme={theme}>
+                <Story />
+            </ChakraProvider>
         </BrowserRouter>
     ),
 ];

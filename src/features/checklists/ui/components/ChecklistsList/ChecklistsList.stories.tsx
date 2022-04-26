@@ -1,7 +1,7 @@
 import ChecklistsList from "./ChecklistsList";
 
 export default {
-    title: "01_basic/ChecklistsList",
+    title: "features/checklists/ChecklistsList",
     component: ChecklistsList,
 };
 

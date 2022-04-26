@@ -49,6 +49,8 @@ const ChecklistCreateForm = ({
         onSubmit({ title, items });
     };
 
+    form.x();
+
     // RENDER
     return (
         <div>
