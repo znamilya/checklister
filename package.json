@@ -6,6 +6,7 @@
         "dev": "vite",
         "test": "jest",
         "test:watch": "jest --watch",
+        "test:coverage": "jest --collectCoverage",
         "type-check": "tsc --noEmit",
         "build": "tsc && vite build",
         "preview": "vite preview",

@@ -21,9 +21,12 @@ node_modules
 *.sln
 *.sw?
 
+coverage
+
 # Build artifacts
 storybook-static
 dist
 dist-ssr
+
 # Local Netlify folder
 .netlify
