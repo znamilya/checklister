@@ -1,6 +1,6 @@
 import { Container, Center } from "@chakra-ui/react";
 import { Link } from "typesafe-routes";
-import { SquareCheck as IconListCheck } from "tabler-icons-react";
+import { FiPlus as IconListCheck } from "react-icons/fi";
 
 import routes from "@/routes";
 

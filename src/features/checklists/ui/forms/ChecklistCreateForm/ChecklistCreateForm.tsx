@@ -1,6 +1,6 @@
 import { Input, FormControl, FormLabel, FormErrorMessage } from "@chakra-ui/react";
 import { Button, IconButton, ButtonGroup, Stack } from "@chakra-ui/react";
-import { Plus as IconPlus, Trash as IconTrash } from "tabler-icons-react";
+import { FiPlus as IconPlus, FiTrash2 as IconTrash } from "react-icons/fi";
 import { useForm, formList } from "@mantine/form";
 
 import { minLength } from "@/utils/validators";

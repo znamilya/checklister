@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@chakra-ui/react";
-import { Plus as IconPlus } from "tabler-icons-react";
+import { FiPlus as IconPlus } from "react-icons/fi";
 
 import routes from "@/routes";
 
@@ -14,7 +14,7 @@ const NewChecklistButton = () => {
             to={routes.children.addChecklist({}).$}
             colorScheme="blue"
             variant="outline"
-            leftIcon={<IconPlus size={20} />}
+            leftIcon={<IconPlus size={24} />}
         >
             New
         </Button>
