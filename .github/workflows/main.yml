@@ -38,49 +38,49 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
       - name: install-dependencies
         run: yarn
-  # eslint:
-  #   runs-on: ubuntu-latest
-  #   needs: [install-dependencies]
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Restore dependencies
-  #       uses: actions/cache@v3
-  #       with:
-  #         path: node_modules
-  #         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-  #     - name: Eslint
-  #       run: yarn lint
-  # type-check:
-  #   runs-on: ubuntu-latest
-  #   needs: [install-dependencies]
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Restore dependencies
-  #       uses: actions/cache@v3
-  #       with:
-  #         path: node_modules
-  #         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-  #     - name: Check types
-  #       run: yarn type-check
-  # unit-tests:
-  #   runs-on: ubuntu-latest
-  #   needs: [install-dependencies]
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Restore dependencies
-  #       uses: actions/cache@v3
-  #       with:
-  #         path: node_modules
-  #         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-  #     - name: Run tests
-  #       run: yarn test:coverage
-  #     - uses: ArtiomTr/jest-coverage-report-action@v2
-  #       with:
-  #         package-manager: yarn
-  #         coverage-file: coverage/results.json
-  #         base-coverage-file: coverage/results.json
-  #         skip-step: install
-  #         annotations: none
+  eslint:
+    runs-on: ubuntu-latest
+    needs: [install-dependencies]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Restore dependencies
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: Eslint
+        run: yarn lint
+  type-check:
+    runs-on: ubuntu-latest
+    needs: [install-dependencies]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Restore dependencies
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: Check types
+        run: yarn type-check
+  unit-tests:
+    runs-on: ubuntu-latest
+    needs: [install-dependencies]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Restore dependencies
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      - name: Run tests
+        run: yarn test:coverage
+      - uses: ArtiomTr/jest-coverage-report-action@v2
+        with:
+          package-manager: yarn
+          coverage-file: coverage/results.json
+          base-coverage-file: coverage/results.json
+          skip-step: install
+          annotations: none
 
   # e2e-tests
   build:
