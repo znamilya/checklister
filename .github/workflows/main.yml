@@ -7,23 +7,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # chromatic-deployment:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v1
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 16
-  #     - name: fix memory
-  #       run: export NODE_OPTIONS="--max-old-space-size=8192"
-  #     - name: Install dependencies
-  #       run: yarn
-  #     - name: echo node
-  #       run: node -v
-  #     - name: Publish to Chromatic
-  #       uses: chromaui/action@v1
-  #       with:
-  #         projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
   install-dependencies:
     runs-on: ubuntu-latest
     steps:
@@ -38,6 +21,7 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
       - name: install-dependencies
         run: yarn
+
   eslint:
     runs-on: ubuntu-latest
     needs: [install-dependencies]
@@ -50,6 +34,7 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
       - name: Eslint
         run: yarn lint
+
   type-check:
     runs-on: ubuntu-latest
     needs: [install-dependencies]
@@ -62,6 +47,7 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
       - name: Check types
         run: yarn type-check
+
   unit-tests:
     runs-on: ubuntu-latest
     needs: [install-dependencies]
@@ -137,3 +123,21 @@ jobs:
         uses: netlify/actions/cli@master
         with:
           args: deploy --dir=dist --prod
+
+  chromatic-deployment:
+    runs-on: ubuntu-latest
+    needs: [eslint, type-check, unit-tests]
+    steps:
+      - uses: actions/checkout@v1
+      # - name: fix memory
+      #   run: export NODE_OPTIONS="--max-old-space-size=8192"
+      - name: Restore dependencies
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
