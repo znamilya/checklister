@@ -129,8 +129,6 @@ jobs:
     needs: [eslint, type-check, unit-tests]
     steps:
       - uses: actions/checkout@v1
-      # - name: fix memory
-      #   run: export NODE_OPTIONS="--max-old-space-size=8192"
       - name: Restore dependencies
         uses: actions/cache@v3
         with:
