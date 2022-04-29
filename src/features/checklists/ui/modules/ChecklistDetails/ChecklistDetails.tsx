@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { IconButton, Button, ButtonGroup, Checkbox, Stack } from "@chakra-ui/react";
 import { NavLink } from "typesafe-routes";
-import { Settings as IconSettings } from "tabler-icons-react";
+import { FiSettings as IconSettings } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
 import routes from "@/routes";
@@ -46,7 +46,7 @@ const ChecklistDetailsModule = ({ checklistId }: ChecklistDetailsModuleProps) =>
                         colorScheme="blue"
                         variant="outline"
                     >
-                        <IconSettings />
+                        <IconSettings size={20} />
                     </IconButton>
                 }
             >
