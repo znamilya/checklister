@@ -126,7 +126,7 @@ jobs:
 
   chromatic-deployment:
     runs-on: ubuntu-latest
-    needs: [eslint, type-check, unit-tests]
+    needs: [install-dependencies]
     steps:
       - uses: actions/checkout@v1
       - name: Restore dependencies
