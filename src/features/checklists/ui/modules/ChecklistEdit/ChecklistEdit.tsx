@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { map, prop } from "ramda";
 
 import routes from "@/routes";
+import { useConfirmation } from "@/features/confirmation";
 
 import { ChecklistId } from "../../../types";
 import useChecklistsController from "../../../controllers/useChecklists";
@@ -18,6 +19,11 @@ type ChecklistEditModuleProps = {
  */
 const ChecklistEditModule = ({ checklistId }: ChecklistEditModuleProps) => {
     const { getChecklist, updateChecklist, removeChecklist } = useChecklistsController();
+    const removeChecklistWithConfirmation = useConfirmation({
+        title: "Delete checklist",
+        message: "Are you sure you want to delete this checklist?",
+        onConfirm: () => handleDeleteConfirm(),
+    });
     const [checklist, checklistError] = getChecklist(checklistId);
     const navigate = useNavigate();
     const initialValues = useMemo(
@@ -42,7 +48,7 @@ const ChecklistEditModule = ({ checklistId }: ChecklistEditModuleProps) => {
         navigate(routes.children.checklistDetails({ checklistId }).$);
     };
 
-    const handleDelete = () => {
+    const handleDeleteConfirm = () => {
         const [, checklistError] = removeChecklist(checklistId);
 
         if (checklistError) return;
@@ -61,7 +67,7 @@ const ChecklistEditModule = ({ checklistId }: ChecklistEditModuleProps) => {
             submitButtonText="Save"
             cancelBackUrl={routes.children.checklistDetails({ checklistId }).$}
             onSubmit={handleFormSubmit}
-            onDelete={handleDelete}
+            onDelete={removeChecklistWithConfirmation}
         />
     );
 };

@@ -3,6 +3,7 @@ import { ChakraProvider, Container } from "@chakra-ui/react";
 
 import routes from "@/routes";
 import DebugObserver from "@/features/devTools/ui/DebugObserver";
+import { ConfirmationProvider } from "@/features/confirmation";
 import AddChecklistPage from "@/pages/AddChecklist";
 import ChecklistDetailsPage from "@/pages/ChecklistDetails";
 import EditChecklistPage from "@/pages/EditChecklist";
@@ -18,20 +19,22 @@ function App() {
             <DebugObserver />
             <ChakraProvider theme={theme}>
                 <AppHeaderModule />
-                <Container as="main" pt={4}>
-                    <Routes>
-                        <Route path={routes.template}>
-                            <Route index element={<HomePage />} />
-                            <Route path={routes.children.addChecklist.template} element={<AddChecklistPage />} />
-                            <Route
-                                path={routes.children.checklistDetails.template}
-                                element={<ChecklistDetailsPage />}
-                            />
-                            <Route path={routes.children.editChecklist.template} element={<EditChecklistPage />} />
-                            <Route path="*" element={<NotFoundPage />} />
-                        </Route>
-                    </Routes>
-                </Container>
+                <ConfirmationProvider>
+                    <Container as="main" pt={4}>
+                        <Routes>
+                            <Route path={routes.template}>
+                                <Route index element={<HomePage />} />
+                                <Route path={routes.children.addChecklist.template} element={<AddChecklistPage />} />
+                                <Route
+                                    path={routes.children.checklistDetails.template}
+                                    element={<ChecklistDetailsPage />}
+                                />
+                                <Route path={routes.children.editChecklist.template} element={<EditChecklistPage />} />
+                                <Route path="*" element={<NotFoundPage />} />
+                            </Route>
+                        </Routes>
+                    </Container>
+                </ConfirmationProvider>
             </ChakraProvider>
         </BrowserRouter>
     );
