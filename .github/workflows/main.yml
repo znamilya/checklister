@@ -20,7 +20,7 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
       - name: install-dependencies
-        run: yarn
+        run: yarn install --frozen-lockfile
 
   eslint:
     runs-on: ubuntu-latest
