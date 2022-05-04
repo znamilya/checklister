@@ -5,6 +5,7 @@ import { useForm, formList } from "@mantine/form";
 
 import { minLength } from "@/utils/validators";
 import CancelButton from "@/ui/components/CancelButton";
+import { FormEvent, useEffect, useRef } from "react";
 
 type ItemValue = { title: string };
 
@@ -28,6 +29,7 @@ const ChecklistCreateForm = ({
     onSubmit,
     onDelete,
 }: ChecklistCreateFormProps) => {
+    const newItemRef = useRef<HTMLInputElement | null>(null);
     const form = useForm({
         initialValues: {
             title: initialValues?.title || "",
@@ -44,9 +46,21 @@ const ChecklistCreateForm = ({
         },
     });
 
+    // To improve UX focus on the new item input after an items was added or removed.
+    useEffect(() => {
+        newItemRef.current?.focus();
+    }, [form.values.items]);
+
     // HANDLERS
     const handleFormSubmit = ({ title, items }: typeof form.values) => {
         onSubmit({ title, items });
+    };
+
+    const handleNewItemFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        form.addListItem("items", { title: form.values.newItem });
+        form.setFieldValue("itemsCount", form.values.itemsCount + 1);
+        form.setFieldValue("newItem", "");
     };
 
     // RENDER
@@ -84,14 +98,7 @@ const ChecklistCreateForm = ({
                 ))}
 
                 {/* NEW ITEM */}
-                <form
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        form.addListItem("items", { title: form.values.newItem });
-                        form.setFieldValue("itemsCount", form.values.itemsCount + 1);
-                        form.setFieldValue("newItem", "");
-                    }}
-                >
+                <form onSubmit={handleNewItemFormSubmit}>
                     <Stack spacing={4} isInline>
                         <FormControl isInvalid={Boolean(form.errors.itemsCount)} sx={{ flex: 1 }}>
                             <Input
@@ -100,6 +107,7 @@ const ChecklistCreateForm = ({
                                     form.setFieldError("itemsCount", null);
                                     form.getInputProps("newItem").onChange(e);
                                 }}
+                                ref={newItemRef}
                             />
                             <FormErrorMessage>{form.errors.itemsCount}</FormErrorMessage>
                         </FormControl>

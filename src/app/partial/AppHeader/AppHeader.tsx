@@ -1,6 +1,6 @@
 import { Container, Center } from "@chakra-ui/react";
 import { Link } from "typesafe-routes";
-import { FiPlus as IconListCheck } from "react-icons/fi";
+import { FaCheckSquare as IconCheck } from "react-icons/fa";
 
 import routes from "@/routes";
 
@@ -9,7 +9,7 @@ const AppHeaderModule = () => {
         <Container as="header" height={12}>
             <Center height="100%">
                 <Link to={routes({})}>
-                    <IconListCheck color="green" size={36} />
+                    <IconCheck color="green" size={32} />
                 </Link>
             </Center>
         </Container>
