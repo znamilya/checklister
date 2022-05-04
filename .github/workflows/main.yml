@@ -107,6 +107,7 @@ jobs:
           path: dist
 
       - name: Deploy to Netlify preview
+        id: deployPreview
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
@@ -114,6 +115,15 @@ jobs:
         uses: netlify/actions/cli@master
         with:
           args: deploy --dir=dist
+
+      - name: Print out Netlify preview URL
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ github.ref != 'refs/heads/main' }}
+        uses: unsplash/comment-on-pr@v1.3.0
+        with:
+          msg: "The deploy preview is available on ${{ steps.deployPreview.outputs.NETLIFY_URL }}"
+          check_for_duplicate_msg: true
 
       - name: Deploy to Netlify production
         env:
