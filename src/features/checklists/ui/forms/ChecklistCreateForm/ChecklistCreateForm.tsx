@@ -29,7 +29,8 @@ const ChecklistCreateForm = ({
     onSubmit,
     onDelete,
 }: ChecklistCreateFormProps) => {
-    const newItemRef = useRef<HTMLInputElement | null>(null);
+    const titleInputRef = useRef<HTMLInputElement | null>(null);
+    const newItemInputRef = useRef<HTMLInputElement | null>(null);
     const form = useForm({
         initialValues: {
             title: initialValues?.title || "",
@@ -48,8 +49,13 @@ const ChecklistCreateForm = ({
 
     // To improve UX focus on the new item input after an items was added or removed.
     useEffect(() => {
-        newItemRef.current?.focus();
+        newItemInputRef.current?.focus();
     }, [form.values.items]);
+
+    // Focus on the title input after the form is mounted.
+    useEffect(() => {
+        titleInputRef.current?.focus();
+    }, []);
 
     // HANDLERS
     const handleFormSubmit = ({ title, items }: typeof form.values) => {
@@ -71,7 +77,13 @@ const ChecklistCreateForm = ({
                 <form id="main-form" onSubmit={form.onSubmit(handleFormSubmit)}>
                     <FormControl isInvalid={Boolean(form.errors.title)}>
                         <FormLabel htmlFor="title">Title</FormLabel>
-                        <Input id="title" variant="flushed" autoFocus {...form.getInputProps("title")} />
+                        <Input
+                            id="title"
+                            variant="flushed"
+                            autoFocus
+                            {...form.getInputProps("title")}
+                            ref={titleInputRef}
+                        />
                         <FormErrorMessage>{form.errors.title}</FormErrorMessage>
                     </FormControl>
                 </form>
@@ -107,7 +119,7 @@ const ChecklistCreateForm = ({
                                     form.setFieldError("itemsCount", null);
                                     form.getInputProps("newItem").onChange(e);
                                 }}
-                                ref={newItemRef}
+                                ref={newItemInputRef}
                             />
                             <FormErrorMessage>{form.errors.itemsCount}</FormErrorMessage>
                         </FormControl>
