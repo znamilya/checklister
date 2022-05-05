@@ -1,7 +1,5 @@
 import { selector } from "recoil";
 
-import { calcPercentage } from "@/utils/percent";
-
 import { Result } from "@/types";
 
 import { ActiveChecklist } from "../types";
@@ -24,13 +22,10 @@ export const getActiveChecklistSelector = selector<Result<ActiveChecklist>>({
 
         if (!targetChecklist) return [null, true];
 
-        const progress = calcPercentage(checkedItems.length, targetChecklist.items.length);
-
         const activeChecklist: ActiveChecklist = {
             id: targetChecklist.id,
             title: targetChecklist.title,
-            progress,
-            isCompleted: progress === 100,
+            isCompleted: checkedItems.length === targetChecklist.items.length,
             items: targetChecklist.items.map((item, index) => ({
                 ...item,
                 isChecked: checkedItems.includes(index),

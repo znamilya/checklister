@@ -20,7 +20,6 @@ export type ActiveChecklistItem = {
 export type ActiveChecklist = {
     id: string;
     title: string;
-    progress: number;
     isCompleted: boolean;
     items: ActiveChecklistItem[];
 };
