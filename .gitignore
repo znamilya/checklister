@@ -21,7 +21,8 @@ node_modules
 *.sln
 *.sw?
 
-coverage
+coverage/lcov-report
+coverage/lcov.info
 
 # Build artifacts
 storybook-static
