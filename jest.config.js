@@ -7,7 +7,6 @@ module.exports = {
         "^@/(.*)$": "<rootDir>/src/$1",
     },
     collectCoverageFrom: [
-        "src/app/**/*.{ts,tsx}",
         "src/features/**/*.{ts,tsx}",
         "src/libs/**/*.{ts,tsx}",
         "src/ui/**/*.{ts,tsx}",
